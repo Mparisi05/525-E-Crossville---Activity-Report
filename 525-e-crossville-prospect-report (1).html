@@ -1,0 +1,1514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>525 E Crossville Road - Prospect Activity Report</title>
+    <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Karla', sans-serif; background-color: #f8f9fa; color: #25282a; line-height: 1.6; }
+        .header { background: linear-gradient(135deg, #25282a 0%, #3a3f42 100%); padding: 2.5rem 2rem; color: white; }
+        .header-content { max-width: 1200px; margin: 0 auto; }
+        .company-name { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; color: #0057b8; margin-bottom: 0.5rem; text-transform: uppercase; }
+        .property-address { font-size: 2rem; font-weight: 700; margin-bottom: 0.25rem; }
+        .report-subtitle { color: #c1c6c8; font-size: 1.1rem; font-weight: 500; }
+        .header-meta { display: flex; align-items: center; gap: 1rem; margin-top: 1rem; flex-wrap: wrap; }
+        .report-date { color: #c1c6c8; font-size: 0.9rem; }
+        .new-activity-badge { background: #0057b8; color: white; padding: 0.35rem 0.75rem; border-radius: 4px; font-size: 0.8rem; font-weight: 600; }
+        .main-content { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        .summary-section { background: white; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+        .section-title { font-size: 1.1rem; font-weight: 700; color: #25282a; margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 2px solid #f0f0f0; }
+        .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; }
+        .metric-card { background: #f8f9fa; border-radius: 6px; padding: 1rem; text-align: center; border: 1px solid #e9ecef; }
+        .metric-card.highlight-green { background: #e8f5e9; border-color: #a5d6a7; }
+        .metric-card.highlight-red { background: #ffebee; border-color: #ef9a9a; }
+        .metric-card.highlight-blue { background: #e3f2fd; border-color: #90caf9; }
+        .metric-number { font-size: 1.75rem; font-weight: 700; color: #25282a; }
+        .metric-card.highlight-green .metric-number { color: #2e7d32; }
+        .metric-card.highlight-red .metric-number { color: #c62828; }
+        .metric-card.highlight-blue .metric-number { color: #0057b8; }
+        .metric-label { font-size: 0.8rem; color: #5b6770; font-weight: 500; margin-top: 0.25rem; }
+        .category-section { margin-bottom: 1.5rem; }
+        .category-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+        .category-badge { padding: 0.35rem 0.75rem; border-radius: 4px; font-size: 0.8rem; font-weight: 600; color: white; }
+        .category-title { font-size: 1rem; font-weight: 600; color: #25282a; }
+        .badge-considering-offer { background: #2e7d32; }
+        .badge-lowball { background: #f57c00; }
+        .badge-post-tour { background: #7b1fa2; }
+        .badge-for-lease { background: #00838f; }
+        .badge-info-review { background: #0057b8; }
+        .badge-hurdle { background: #c62828; }
+        .badge-silent { background: #455a64; }
+        .badge-dead { background: #5b6770; }
+        .prospect-card { background: white; border-radius: 8px; margin-bottom: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.08); overflow: hidden; border: 1px solid #e9ecef; }
+        .prospect-card.has-new-activity { border-left: 4px solid #0057b8; }
+        .prospect-summary { padding: 1rem 1.25rem; cursor: pointer; display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; transition: background 0.15s ease; }
+        .prospect-summary:hover { background: #fafbfc; }
+        .prospect-main { flex: 1; }
+        .prospect-name-row { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem; flex-wrap: wrap; }
+        .prospect-name { font-weight: 700; color: #25282a; font-size: 1rem; }
+        .new-badge { background: #0057b8; color: white; padding: 0.15rem 0.5rem; border-radius: 3px; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em; }
+        .type-badge { padding: 0.15rem 0.5rem; border-radius: 3px; font-size: 0.7rem; font-weight: 600; background: #f0f0f0; color: #5b6770; }
+        .type-badge.investor { background: #fff3e0; color: #e65100; }
+        .type-badge.owner-user { background: #e8f5e9; color: #2e7d32; }
+        .type-badge.developer { background: #fce4ec; color: #c2185b; }
+        .offer-badge { background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%); color: white; padding: 0.25rem 0.6rem; border-radius: 4px; font-size: 0.85rem; font-weight: 700; display: inline-flex; align-items: center; gap: 0.35rem; box-shadow: 0 2px 4px rgba(46, 125, 50, 0.3); }
+        .offer-badge::before { content: "💰"; font-size: 0.8rem; }
+        .summary-section-inline { margin-bottom: 0.5rem; }
+        .summary-label { font-size: 0.75rem; font-weight: 700; color: #25282a; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.25rem; }
+        .summary-text { color: #5b6770; font-size: 0.9rem; line-height: 1.5; }
+        .prospect-meta { display: flex; gap: 1.5rem; font-size: 0.8rem; color: #5b6770; flex-wrap: wrap; }
+        .meta-item { display: flex; align-items: center; gap: 0.35rem; }
+        .meta-label { color: #9e9e9e; }
+        .expand-icon { color: #c1c6c8; font-size: 1.25rem; transition: transform 0.2s ease; flex-shrink: 0; }
+        .prospect-card.expanded .expand-icon { transform: rotate(180deg); }
+        .prospect-details { display: none; padding: 0 1.25rem 1.25rem; border-top: 1px solid #f0f0f0; background: #fafbfc; }
+        .prospect-card.expanded .prospect-details { display: block; }
+        .details-section { margin-top: 1rem; }
+        .details-label { font-size: 0.75rem; font-weight: 600; color: #5b6770; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.35rem; }
+        .details-content { font-size: 0.9rem; color: #25282a; }
+        .details-content a { color: #0057b8; text-decoration: none; }
+        .details-content a:hover { text-decoration: underline; }
+        .hurdle-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .hurdle-tag { background: #fff3e0; color: #e65100; padding: 0.25rem 0.6rem; border-radius: 4px; font-size: 0.8rem; font-weight: 500; }
+        .activity-log { margin-top: 1rem; }
+        .activity-entry { padding: 0.6rem 0.75rem; margin-bottom: 0.5rem; background: white; border-radius: 4px; font-size: 0.85rem; border-left: 3px solid #e0e0e0; }
+        .activity-entry.new-activity { background: #e3f2fd; border-left-color: #0057b8; }
+        .activity-date { font-weight: 600; color: #5b6770; margin-right: 0.5rem; }
+        .activity-text { color: #25282a; }
+        .footer { text-align: center; padding: 2rem; color: #5b6770; font-size: 0.85rem; border-top: 1px solid #e9ecef; margin-top: 2rem; }
+        @media (max-width: 768px) { .header { padding: 1.5rem 1rem; } .property-address { font-size: 1.5rem; } .main-content { padding: 1rem; } .metrics-grid { grid-template-columns: repeat(2, 1fr); } .prospect-meta { flex-direction: column; gap: 0.35rem; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="company-name">Industry Real Estate Partners</div>
+            <h1 class="property-address">525 E Crossville Road</h1>
+            <div class="report-subtitle">Prospect Activity Report</div>
+            <div class="header-meta">
+                <span class="report-date">February 14, 2026</span>
+                <span class="new-activity-badge">New Activity Since Feb 3</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <section class="summary-section">
+            <h2 class="section-title">Pipeline Summary</h2>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-number">32</div>
+                    <div class="metric-label">Total Prospects</div>
+                </div>
+                <div class="metric-card highlight-green">
+                    <div class="metric-number">25</div>
+                    <div class="metric-label">Active Prospects</div>
+                </div>
+                <div class="metric-card" style="background: #e8f5e9; border-color: #81c784;">
+                    <div class="metric-number" style="color: #1b5e20;">4</div>
+                    <div class="metric-label">Total Offers</div>
+                </div>
+                <div class="metric-card" style="background: #e8f5e9; border-color: #81c784;">
+                    <div class="metric-number" style="color: #1b5e20;">$3.2M</div>
+                    <div class="metric-label">Highest Offer</div>
+                </div>
+                <div class="metric-card" style="background: #e3f2fd; border-color: #90caf9;">
+                    <div class="metric-number" style="color: #0057b8;">9</div>
+                    <div class="metric-label">Tours Completed</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">1</div>
+                    <div class="metric-label">Considering Offer</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">3</div>
+                    <div class="metric-label">Post-Tour Review</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">3</div>
+                    <div class="metric-label">For Lease Interest</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">3</div>
+                    <div class="metric-label">Active Lowball Offer</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">3</div>
+                    <div class="metric-label">Information Review</div>
+                </div>
+                <div class="metric-card highlight-red">
+                    <div class="metric-number">10</div>
+                    <div class="metric-label">Hit a Hurdle</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">2</div>
+                    <div class="metric-label">Silent</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">7</div>
+                    <div class="metric-label">Dead</div>
+                </div>
+                <div class="metric-card highlight-blue">
+                    <div class="metric-number">5</div>
+                    <div class="metric-label">With New Activity</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Considering Offer -->
+        <section class="category-section">
+            <div class="category-header">
+                <span class="category-badge badge-considering-offer">1</span>
+                <span class="category-title">Considering Offer</span>
+            </div>
+
+            <div class="prospect-card has-new-activity" onclick="toggleCard(this)">
+                <div class="prospect-summary">
+                    <div class="prospect-main">
+                        <div class="prospect-name-row">
+                            <span class="prospect-name">Holistic Health Practitioner - Lee Woodall</span>
+                            <span class="new-badge">NEW</span>
+                            <span class="type-badge owner-user">Owner-User</span>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Description</div>
+                            <div class="summary-text">Lee Woodall leading three-part holistic health center targeting upper class clientele. Main floor: health store + IV treatment & spa. Top floor: clinic space. Cash buyer with $2M construction budget.</div>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Status</div>
+                            <div class="summary-text">Lee responded (2/12) saying he's talking to his funder on 2/13.</div>
+                        </div>
+                        <div class="prospect-meta">
+                            <span class="meta-item"><span class="meta-label">Source:</span> Crexi</span>
+                            <span class="meta-item"><span class="meta-label">Last Tour:</span> Dec 22, 2025</span>
+                            <span class="meta-item"><span class="meta-label">Purchase:</span> Cash</span>
+                        </div>
+                    </div>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="prospect-details">
+                    <div class="details-section">
+                        <div class="details-label">Activity Log</div>
+                        <div class="activity-log">
+                            <div class="activity-entry new-activity"><span class="activity-date">2/12/26:</span><span class="activity-text">Lee responded saying he was talking to his funder tomorrow (2/13).</span></div>
+                            <div class="activity-entry new-activity"><span class="activity-date">2/9/26:</span><span class="activity-text">Requested update from Lee.</span></div>
+                            <div class="activity-entry"><span class="activity-date">2/1/26:</span><span class="activity-text">Received church group text from Lee. Felt like an attempt to keep me in his thoughts. My take is that he is still trying to win over his investors to buy the building and wants me to give him more time.</span></div>
+                            <div class="activity-entry"><span class="activity-date">1/26/26:</span><span class="activity-text">Pushed back on lease to own scenario, saying we are focused on sale. He said he would push to get what he needed.</span></div>
+                            <div class="activity-entry"><span class="activity-date">1/24/26:</span><span class="activity-text">Lee texted about lease to purchase option. Says the investors are still meeting and at this time willing to do the lease to own scenario.</span></div>
+                            <div class="activity-entry"><span class="activity-date">1/23/26:</span><span class="activity-text">Called and left VM requesting an update and urgency due to decisions needed to be made on bank prospects.</span></div>
+                            <div class="activity-entry"><span class="activity-date">1/20/26:</span><span class="activity-text">Called but no answer.</span></div>
+                            <div class="activity-entry"><span class="activity-date">1/16/26:</span><span class="activity-text">Checked in at end of week for status. No response.</span></div>
+                            <div class="activity-entry"><span class="activity-date">1/12/26:</span><span class="activity-text">Checked in, Lee said he's waiting on the LOI to return with proof of funds this week.</span></div>
+                            <div class="activity-entry"><span class="activity-date">1/8/26:</span><span class="activity-text">Confirmed he received the LOI form.</span></div>
+                            <div class="activity-entry"><span class="activity-date">1/7/26:</span><span class="activity-text">Lee requested LOI form to draft LOI from and said he wanted to take the building off the market. He needed to present to the investors, gather proof of funds, and then send their offer. Timing seemed like early the week of 1/12.</span></div>
+                            <div class="activity-entry"><span class="activity-date">1/5/26:</span><span class="activity-text">Followed up requesting conversation.</span></div>
+                            <div class="activity-entry"><span class="activity-date">1/1/26:</span><span class="activity-text">Received happy new years text from Lee.</span></div>
+                            <div class="activity-entry"><span class="activity-date">12/22/25:</span><span class="activity-text">Toured again with Hellen and GC. She did not have a test fit, but we still made progress. She anticipated that we would get an offer after the New Year once Lee was back from funerals and holidays. She really liked the building.</span></div>
+                            <div class="activity-entry"><span class="activity-date">12/16/25:</span><span class="activity-text">Lee had deaths in the family that he needed to attend and said nothing would likely happen until after the holidays. Connected me with Hellen directly to organize second tour with GC.</span></div>
+                            <div class="activity-entry"><span class="activity-date">12/15/25:</span><span class="activity-text">Wants to schedule a follow up with Hellen and a GC so they can better understand pricing.</span></div>
+                            <div class="activity-entry"><span class="activity-date">12/12/25:</span><span class="activity-text">Toured Hellen. She did a lot of builds with Piedmont near Athens. She's consulting for this group. Really liked the building and could re-use a lot of the structure. Says that Johns Creek was their ideal location, but they can't find any buildings that work.</span></div>
+                            <div class="activity-entry"><span class="activity-date">12/8/25:</span><span class="activity-text">Called directly. Says they are looking to open a holistic health center. Says they are a cash buyer. Says they have $2M set aside for construction. Sent marketing materials including CAD Files for them to take a closer look.</span></div>
+                            <div class="activity-entry"><span class="activity-date">12/7/25:</span><span class="activity-text">Reached out on Crexi.</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Post-Tour Review -->
+        <section class="category-section">
+            <div class="category-header">
+                <span class="category-badge badge-post-tour">3</span>
+                <span class="category-title">Post-Tour Review</span>
+            </div>
+
+            <div class="prospect-card has-new-activity" onclick="toggleCard(this)">
+                <div class="prospect-summary">
+                    <div class="prospect-main">
+                        <div class="prospect-name-row">
+                            <span class="prospect-name">Vine Medical</span>
+                            <span class="new-badge">NEW</span>
+                            <span class="type-badge owner-user">Partial-User</span>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Description</div>
+                            <div class="summary-text">Vine Medical Associates is a Human Performance and Longevity Medicine practice in Atlanta. They would only need 1 floor.</div>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Status</div>
+                            <div class="summary-text">Received feedback (2/4) that they like the idea of a "high-end" bank, wealth management firm, boutique fitness or pilates, or specialized diagnostics (imaging or lab).</div>
+                        </div>
+                        <div class="prospect-meta">
+                            <span class="meta-item"><span class="meta-label">Source:</span> Previous Prospect</span>
+                            <span class="meta-item"><span class="meta-label">Purchase:</span> Financing</span>
+                        </div>
+                    </div>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="prospect-details">
+                    <div class="details-section">
+                        <div class="details-label">Website</div>
+                        <div class="details-content"><a href="https://www.vinemedical.com" target="_blank">vinemedical.com</a></div>
+                    </div>
+                    <div class="details-section">
+                        <div class="details-label">Hurdles</div>
+                        <div class="hurdle-tags">
+                            <span class="hurdle-tag">Affordability</span>
+                            <span class="hurdle-tag">Need tenant for first floor</span>
+                        </div>
+                    </div>
+                    <div class="details-section">
+                        <div class="details-label">Activity Log</div>
+                        <div class="activity-log">
+                            <div class="activity-entry new-activity"><span class="activity-date">2/4/26:</span><span class="activity-text">Received feedback that they like the idea of a "high-end" bank, as well as a wealth management firm, a boutique fitness or pilates, or a specialized diagnostics (imaging or lab).</span></div>
+                            <div class="activity-entry"><span class="activity-date">1/30/26:</span><span class="activity-text">Re-engaged broker to let them know about the bank interest we've been receiving.</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="prospect-card" onclick="toggleCard(this)">
+                <div class="prospect-summary">
+                    <div class="prospect-main">
+                        <div class="prospect-name-row">
+                            <span class="prospect-name">Sullivan & Schliemann Wealth Management</span>
+                            <span class="type-badge owner-user">Partial-User</span>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Description</div>
+                            <div class="summary-text">Growing wealth management firm looking for space immediately with Owenby Jones. Currently in office condo off N Point Parkway.</div>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Status</div>
+                            <div class="summary-text">Katie responded (2/2) saying they toured other options but have not made a decision. "If there is an update, I will be sure to let you know."</div>
+                        </div>
+                        <div class="prospect-meta">
+                            <span class="meta-item"><span class="meta-label">Source:</span> Loopnet Outreach</span>
+                            <span class="meta-item"><span class="meta-label">Last Tour:</span> Jan 7, 2026</span>
+                            <span class="meta-item"><span class="meta-label">Purchase:</span> Leveraged</span>
+                        </div>
+                    </div>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="prospect-details">
+                    <div class="details-section">
+                        <div class="details-label">Website</div>
+                        <div class="details-content"><a href="https://www.sswmllc.com" target="_blank">sswmllc.com</a> | <a href="https://www.owenbyjones.com" target="_blank">owenbyjones.com</a></div>
+                    </div>
+                    <div class="details-section">
+                        <div class="details-label">Hurdles</div>
+                        <div class="hurdle-tags">
+                            <span class="hurdle-tag">First floor uncertainty</span>
+                            <span class="hurdle-tag">Construction costs</span>
+                        </div>
+                    </div>
+                    <div class="details-section">
+                        <div class="details-label">Activity Log</div>
+                        <div class="activity-log">
+                            <div class="activity-entry"><span class="activity-date">2/2/26:</span><span class="activity-text">Katie responded saying that they toured the other options but that they have not made a decision at this time. She said "if there is an update, I will be sure to let you know".</span></div>
+                            <div class="activity-entry"><span class="activity-date">1/30/26:</span><span class="activity-text">Left Andrew a VM. Did not hear back from Katie.</span></div>
+                            <div class="activity-entry"><span class="activity-date">1/26/26:</span><span class="activity-text">Requested update from weekend.</span></div>
+                            <div class="activity-entry"><span class="activity-date">1/19/26:</span><span class="activity-text">Called and spoke with Andrew. Says they like the building but have one more to see on Saturday and have uncertainty around what to do with the first floor. He says leasing to a bank would be ideal. Either way, we would reconnect after his other tour.</span></div>
+                            <div class="activity-entry"><span class="activity-date">1/8/26:</span><span class="activity-text">Followed up on requests and sent thank you note to Andrew.</span></div>
+                            <div class="activity-entry"><span class="activity-date">1/7/26:</span><span class="activity-text">Toured building. They really liked it, but wanted to run numbers on construction before making any progress. They were interested in perhaps leasing a portion of the first floor to a bank. They also wanted to level out the front of the property for better visibility off the road. Decision maker assured me he would be in touch.</span></div>
+                            <div class="activity-entry"><span class="activity-date">1/5/26:</span><span class="activity-text">Called requesting a tour this week, but could only do after 4PM. Tentatively scheduled for 1/7.</span></div>
+                            <div class="activity-entry"><span class="activity-date">12/11/25:</span><span class="activity-text">Broker reached out about user needing 10,000 SF of office.</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="prospect-card" onclick="toggleCard(this)">
+                <div class="prospect-summary">
+                    <div class="prospect-main">
+                        <div class="prospect-name-row">
+                            <span class="prospect-name">Georgia Skyline Bank</span>
+                            <span class="type-badge owner-user">Owner-User</span>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Description</div>
+                            <div class="summary-text">New community bank. Think it's one of the most structurally sound buildings they've seen.</div>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Status</div>
+                            <div class="summary-text">Intel (1/28): Board member Russ Scaramella has major stake in former BP land on Mansell Road—extremely wealthy. Board members would purchase the building. ENV inspections pushed to February.</div>
+                        </div>
+                        <div class="prospect-meta">
+                            <span class="meta-item"><span class="meta-label">Source:</span> LoopNet / Sign Call</span>
+                            <span class="meta-item"><span class="meta-label">Last Tour:</span> Aug 25, 2025</span>
+                        </div>
+                    </div>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="prospect-details">
+                    <div class="details-section">
+                        <div class="details-label">Website</div>
+                        <div class="details-content"><a href="https://www.georgiaskyline.com" target="_blank">georgiaskyline.com</a></div>
+                    </div>
+                    <div class="details-section">
+                        <div class="details-label">Hurdles</div>
+                        <div class="hurdle-tags">
+                            <span class="hurdle-tag">Trees/security</span>
+                            <span class="hurdle-tag">City-owned acreage</span>
+                            <span class="hurdle-tag">Alternative at 1190 Old Roswell</span>
+                        </div>
+                    </div>
+                    <div class="details-section">
+                        <div class="details-label">Activity Log</div>
+                        <div class="activity-log">
+                            <div class="activity-entry"><span class="activity-date">1/28/26:</span><span class="activity-text">Found out that board member of the bank, Russ Scaramella, has a major stake in the land of the former BP on Mansell Road. Apparently, he's extremely wealthy. Also need to remember that it was going to be the board members who purchased the building in the first place.</span></div>
+                            <div class="activity-entry"><span class="activity-date">12/18/25:</span><span class="activity-text">Received email that they pushed ENV inspections back to February.</span></div>
+                            <div class="activity-entry"><span class="activity-date">12/17/25:</span><span class="activity-text">Called and left VM.</span></div>
+                            <div class="activity-entry"><span class="activity-date">12/10/25:</span><span class="activity-text">Called and left VM.</span></div>
+                            <div class="activity-entry"><span class="activity-date">10/24/25:</span><span class="activity-text">Received call back. They are all focused on 1190 Old Roswell and signed a 1 year lease. Will move forward if they receive a clean environmental. Set to raise money on 12/15, may need to push another 60 days. Should know on env in early December. Pushed to make an offer to close by end of year, they said if we came down to something crazy like $1.5M they would reconsider... Said they could still close by year end if things shifted that way.</span></div>
+                            <div class="activity-entry"><span class="activity-date">10/23/25:</span><span class="activity-text">Called and left VM.</span></div>
+                            <div class="activity-entry"><span class="activity-date">10/20/25:</span><span class="activity-text">Called to follow up. Left VM.</span></div>
+                            <div class="activity-entry"><span class="activity-date">9/18/25:</span><span class="activity-text">They like the bldg, think it would be good to only put $0.5M or $0.75M to get going. But three issues: 1. is location, can make better with visibility. 2. Is it's very big, a lot of space early on. 3. Is the price point. They moved their FDIC exam to 9/30 and 10/1 and are not chasing their real estate play. They think it's a good building, one of the most structurally sound they've seen. They don't know if it's going to be a good fit for them or not. I let them know we have flexibility on pricing, don't hesitate to put a number out there.</span></div>
+                            <div class="activity-entry"><span class="activity-date">8/25/25:</span><span class="activity-text">Toured the building, went well. Shared CAD files immediately after. They said they would get back to us soon.</span></div>
+                            <div class="activity-entry"><span class="activity-date">8/21/25:</span><span class="activity-text">Reached out after meeting requesting a tour. Meeting was with 6 people from Roswell. They said it would be a great site, and possible to lease the land for control and upkeep.</span></div>
+                            <div class="activity-entry"><span class="activity-date">8/18/25:</span><span class="activity-text">Shared arborist pricing. He responded with many thanks.</span></div>
+                            <div class="activity-entry"><span class="activity-date">8/8/25:</span><span class="activity-text">Prospect called in, Ryan Floyd. Currently located at 1095 Old Roswell Rd, leasing for $12/SF. Under contract with 5,000 SF property that needs significant capital improvements. It won't accommodate all of their people, so they will need to lease or purchase another facility. Have had their eye on our building for a long time, understands it only needs paint and carpet. Trees are a big issue.</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- For Lease Interest -->
+        <section class="category-section">
+            <div class="category-header">
+                <span class="category-badge badge-for-lease">3</span>
+                <span class="category-title">For Lease Interest</span>
+            </div>
+
+            <div class="prospect-card has-new-activity" onclick="toggleCard(this)">
+                <div class="prospect-summary">
+                    <div class="prospect-main">
+                        <div class="prospect-name-row">
+                            <span class="prospect-name">FirstBank</span>
+                            <span class="new-badge">NEW</span>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Description</div>
+                            <div class="summary-text">FirstBank merger impetus for growth. Need North Fulton and Perimeter locations. Only interested in leasing.</div>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Status</div>
+                            <div class="summary-text">Toured head of retail from Nashville (2/5). Overall liked site pending architectural plans. Caught up with broker (2/11)—bank likes site and wants to make it work. Discussed getting architect involved sooner.</div>
+                        </div>
+                        <div class="prospect-meta">
+                            <span class="meta-item"><span class="meta-label">Source:</span> Broker outreach</span>
+                            <span class="meta-item"><span class="meta-label">Last Tour:</span> Feb 5, 2026</span>
+                        </div>
+                    </div>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="prospect-details">
+                    <div class="details-section">
+                        <div class="details-label">Website</div>
+                        <div class="details-content"><a href="https://www.firstbankonline.com" target="_blank">firstbankonline.com</a></div>
+                    </div>
+                    <div class="details-section">
+                        <div class="details-label">Hurdles</div>
+                        <div class="hurdle-tags">
+                            <span class="hurdle-tag">Ironing out brokerage agreement</span>
+                        </div>
+                    </div>
+                    <div class="details-section">
+                        <div class="details-label">Activity Log</div>
+                        <div class="activity-log">
+                            <div class="activity-entry new-activity"><span class="activity-date">2/11/26:</span><span class="activity-text">Caught up with broker. He said they were pushing, but red tape still holding them back. Feedback from Bank is that they like the site and want to make it work. Just a matter of getting going. We discussed getting an architect involved sooner than later knowing construction is likely to be the biggest hurdle.</span></div>
+                            <div class="activity-entry new-activity"><span class="activity-date">2/5/26:</span><span class="activity-text">Toured head of retail from Nashville. He had some comments but overall liked the site, pending architectural and construction plans to modernize and make efficient.</span></div>
+                            <div class="activity-entry"><span class="activity-date">1/26/26:</span><span class="activity-text">Requested tour for Thursday February 5th at 11AM.</span></div>
+                            <div class="activity-entry"><span class="activity-date">1/23/26:</span><span class="activity-text">Working through red tape with brokerage agreement. Requested timing but unclear. Sent a floorplan to the broker to see if it would work. He presented and will let me know feedback.</span></div>
+                            <div class="activity-entry"><span class="activity-date">1/20/26:</span><span class="activity-text">Checked in for update. Said he checked in but hadn't heard.</span></div>
+                            <div class="activity-entry"><span class="activity-date">1/7/26:</span><span class="activity-text">Text from broker "bank strategy meeting next Thursday. He said "hopefully ready to roll after that".</span></div>
+                            <div class="activity-entry"><span class="activity-date">11/25/25:</span><span class="activity-text">Real estate team said not interested in purchasing, but would lease. Won't really get things going until the new year.</span></div>
+                            <div class="activity-entry"><span class="activity-date">11/18/25:</span><span class="activity-text">Toured. Said they liked it, the first floor (except for maybe 1,500 sf too much space) and would be offering in the new year once real estate team had a chance to review. They are also working on a location closer to the perimeter.</span></div>
+                            <div class="activity-entry"><span class="activity-date">11/17/25:</span><span class="activity-text">Broker requested floorplans again. FB requested tour for 11/18.</span></div>
+                            <div class="activity-entry"><span class="activity-date">11/14/25:</span><span class="activity-text">FirstBank is very interested. They are leaning more towards purchasing themselves, as they had experience working with a co-working group and didn't like it, so they would buy, occupy the first floor, and lease out the top floor to a single tenant. Leasing still an option as well. Looking to tour next week.</span></div>
+                            <div class="activity-entry"><span class="activity-date">11/13/25:</span><span class="activity-text">Broker called about FirstBank looking for Roswell location and the investor thinking it could work with them on 1st floor and co-working on second floor. Bank reviewing materials and considering the building for a tour.</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="prospect-card has-new-activity" onclick="toggleCard(this)">
+                <div class="prospect-summary">
+                    <div class="prospect-main">
+                        <div class="prospect-name-row">
+                            <span class="prospect-name">Cadence Bank</span>
+                            <span class="new-badge">NEW</span>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Description</div>
+                            <div class="summary-text">Cadence being acquired by Huntington Bank. Looking to expand in Atlanta over 25 months.</div>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Status</div>
+                            <div class="summary-text">Acquisition closed (2/9). They're going to start real estate discussions back up.</div>
+                        </div>
+                        <div class="prospect-meta">
+                            <span class="meta-item"><span class="meta-label">Source:</span> Targeted Research</span>
+                        </div>
+                    </div>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="prospect-details">
+                    <div class="details-section">
+                        <div class="details-label">Website</div>
+                        <div class="details-content"><a href="https://www.cadencebank.com" target="_blank">cadencebank.com</a></div>
+                    </div>
+                    <div class="details-section">
+                        <div class="details-label">Activity Log</div>
+                        <div class="activity-log">
+                            <div class="activity-entry new-activity"><span class="activity-date">2/9/26:</span><span class="activity-text">Cadence Bank and Huntington acquisition closed. They are going to start real estate discussions back up.</span></div>
+                            <div class="activity-entry"><span class="activity-date">1/6/26:</span><span class="activity-text">Still working through acquisition. Won't meet until they are through the clear.</span></div>
+                            <div class="activity-entry"><span class="activity-date">12/3/25:</span><span class="activity-text">Connected the dots that our co-worker's dad is an EVP at Cadence. Sent him marketing materials directly and learned that he will be leading the charge on new retail locations in Atlanta over the next 25 months.</span></div>
+                            <div class="activity-entry"><span class="activity-date">12/2/25:</span><span class="activity-text">Reached out directly to market leader, David Berdugo, via a 3-pronged email campaign.</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="prospect-card" onclick="toggleCard(this)">
+                <div class="prospect-summary">
+                    <div class="prospect-main">
+                        <div class="prospect-name-row">
+                            <span class="prospect-name">Seacoast Bank</span>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Description</div>
+                            <div class="summary-text">Seacoast Bank growing, looking for locations.</div>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Status</div>
+                            <div class="summary-text">Sent floorplan 1/26—would need entire floor for commercial back office, need to reduce retail portion. Laid out architecture/construction timing. No response.</div>
+                        </div>
+                        <div class="prospect-meta">
+                            <span class="meta-item"><span class="meta-label">Source:</span> Direct</span>
+                            <span class="meta-item"><span class="meta-label">Last Tour:</span> Dec 10, 2025</span>
+                        </div>
+                    </div>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="prospect-details">
+                    <div class="details-section">
+                        <div class="details-label">Website</div>
+                        <div class="details-content"><a href="https://www.seacoastbank.com" target="_blank">seacoastbank.com</a></div>
+                    </div>
+                    <div class="details-section">
+                        <div class="details-label">Hurdles</div>
+                        <div class="hurdle-tags">
+                            <span class="hurdle-tag">Need to reduce retail portion</span>
+                            <span class="hurdle-tag">Office efficiency concerns</span>
+                        </div>
+                    </div>
+                    <div class="details-section">
+                        <div class="details-label">Activity Log</div>
+                        <div class="activity-log">
+                            <div class="activity-entry"><span class="activity-date">1/26/26:</span><span class="activity-text">Sent email to Tesler with example floorplan for the bank, asked if we could get feedback. He said that they would need the entire floor, mostly for commercial back office, so they would need to make the office more efficient and reduce the retail portion. I laid out the timing for architecture and construction pricing, and asked if I could help him get that started. No response.</span></div>
+                            <div class="activity-entry"><span class="activity-date">12/19/25:</span><span class="activity-text">Tracked Michael opening email.</span></div>
+                            <div class="activity-entry"><span class="activity-date">12/11/25:</span><span class="activity-text">Sent thank you for touring card via post mail.</span></div>
+                            <div class="activity-entry"><span class="activity-date">12/10/25:</span><span class="activity-text">Toured Michael. He said they wouldn't need all of the space on the first floor. Next steps would be checking back in February once he had a real estate team in place.</span></div>
+                            <div class="activity-entry"><span class="activity-date">11/14/25:</span><span class="activity-text">Reaching out directly.</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Active Lowball Offer -->
+        <section class="category-section">
+            <div class="category-header">
+                <span class="category-badge badge-lowball">3</span>
+                <span class="category-title">Active Lowball Offer</span>
+            </div>
+
+            <div class="prospect-card" onclick="toggleCard(this)">
+                <div class="prospect-summary">
+                    <div class="prospect-main">
+                        <div class="prospect-name-row">
+                            <span class="prospect-name">Investor with Co-Working Concept In-Tow</span>
+                            <span class="type-badge investor">Investor</span>
+                            <span class="offer-badge">$3M Offer</span>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Description</div>
+                            <div class="summary-text">Co-working concept with local investor ($50M+ net worth) and national brand. Can pay cash.</div>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Status</div>
+                            <div class="summary-text">Offered $3M or lower via email 10/23. Cannot justify sale comps without bank on first floor.</div>
+                        </div>
+                        <div class="prospect-meta">
+                            <span class="meta-item"><span class="meta-label">Source:</span> E-Blast</span>
+                            <span class="meta-item"><span class="meta-label">Last Tour:</span> Oct 22, 2025</span>
+                            <span class="meta-item"><span class="meta-label">Offer Date:</span> Oct 23, 2025</span>
+                        </div>
+                    </div>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="prospect-details">
+                    <div class="details-section">
+                        <div class="details-label">Hurdles</div>
+                        <div class="hurdle-tags">
+                            <span class="hurdle-tag">Cannot justify comps without bank on 1st floor</span>
+                        </div>
+                    </div>
+                    <div class="details-section">
+                        <div class="details-label">Activity Log</div>
+                        <div class="activity-log">
+                            <div class="activity-entry"><span class="activity-date">10/23/25:</span><span class="activity-text">Offered via email that it needs to be $3M or lower.</span></div>
+                            <div class="activity-entry"><span class="activity-date">10/22/25:</span><span class="activity-text">Toured building. Liked it.</span></div>
+                            <div class="activity-entry"><span class="activity-date">10/21/25:</span><span class="activity-text">Down to $2.8M now, but I'm still pushing for a physical offer. They want to tour.</span></div>
+                            <div class="activity-entry"><span class="activity-date">10/2/25:</span><span class="activity-text">Sent eblast and he called immediately. Pricing has gone further down due to construction anticipation. They are still interested.</span></div>
+                            <div class="activity-entry"><span class="activity-date">7/16/25:</span><span class="activity-text">Highest sale has been $229/SF for finished product. They want to tour, but pricing needs to come down. Wants to see if we would entertain $3.5M.</span></div>
+                            <div class="activity-entry"><span class="activity-date">7/14/25:</span><span class="activity-text">Investor he's tight with is partnering with co-working operator. They need to be all in around $3.8M for the numbers to work out. Building next door gets $16/SF rents. They can pay cash, but need numbers to make sense. Buyer worth $50M+.</span></div>
+                            <div class="activity-entry"><span class="activity-date">7/10/25:</span><span class="activity-text">Broker responded to e-blast. Has a co-working client that would be super interested. Sent additional information.</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="prospect-card" onclick="toggleCard(this)">
+                <div class="prospect-summary">
+                    <div class="prospect-main">
+                        <div class="prospect-name-row">
+                            <span class="prospect-name">Dr. Niraj Sharma - Cardiologist</span>
+                            <span class="type-badge owner-user">Owner-User</span>
+                            <span class="offer-badge">$2.5M Offer</span>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Description</div>
+                            <div class="summary-text">Northside doctor looking to go out on his own with 7-8 partner doctors. 1st floor cardiology, 2nd floor aesthetics/wellness.</div>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Status</div>
+                            <div class="summary-text">Received offer for $2.5M via email 11/20. Doesn't think $4M makes sense with construction needed.</div>
+                        </div>
+                        <div class="prospect-meta">
+                            <span class="meta-item"><span class="meta-label">Source:</span> Sign Call</span>
+                            <span class="meta-item"><span class="meta-label">Offer Date:</span> Nov 20, 2025</span>
+                            <span class="meta-item"><span class="meta-label">Purchase:</span> Traditional lending</span>
+                        </div>
+                    </div>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="prospect-details">
+                    <div class="details-section">
+                        <div class="details-label">Hurdles</div>
+                        <div class="hurdle-tags">
+                            <span class="hurdle-tag">Financing and capital</span>
+                        </div>
+                    </div>
+                    <div class="details-section">
+                        <div class="details-label">Activity Log</div>
+                        <div class="activity-log">
+                            <div class="activity-entry"><span class="activity-date">11/20/25:</span><span class="activity-text">Received offer for $2.5M via email.</span></div>
+                            <div class="activity-entry"><span class="activity-date">11/4/25:</span><span class="activity-text">Sent detailed notes on City Center development. Requested an update on lender discussions.</span></div>
+                            <div class="activity-entry"><span class="activity-date">10/21/25:</span><span class="activity-text">Reconnected. He doesn't think that the purchase price necessary ($4M) would make sense with the amount of construction necessary. Wanted me to specify a lender or two that would be best. Wasn't sure if they had enough capital. Lendees going on the loan would only be up to 3, if not just himself. Let him know to try to make something happen by year's end.</span></div>
+                            <div class="activity-entry"><span class="activity-date">10/15/25:</span><span class="activity-text">Sent lender contacts and contractor notes.</span></div>
+                            <div class="activity-entry"><span class="activity-date">10/14/25:</span><span class="activity-text">Called back to discuss. Cardiology practiced currently employed by hospital. Viewed building in the past, 2024. 1st floor would be cardiology, exam rooms, CT Scanner, room for echo machine, and diagnostic. Upstairs would be aesthetics, wellness, longevity. They need more restrooms in the building. GA law will open up for ambulatory services, could use drive through. Ideal timing is two years out, but will look into it. Has 7-8 doctor partners.</span></div>
+                            <div class="activity-entry"><span class="activity-date">10/13/25:</span><span class="activity-text">Received VM.</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="prospect-card" onclick="toggleCard(this)">
+                <div class="prospect-summary">
+                    <div class="prospect-main">
+                        <div class="prospect-name-row">
+                            <span class="prospect-name">Van Phan</span>
+                            <span class="type-badge investor">Investor</span>
+                            <span class="offer-badge">$2.5M Offer</span>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Description</div>
+                            <div class="summary-text">Local investor with building in Lawrenceville looking to 1031 exchange.</div>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Status</div>
+                            <div class="summary-text">Emailed offer for $2.5M on 12/27. Said no thanks. Significant price gap.</div>
+                        </div>
+                        <div class="prospect-meta">
+                            <span class="meta-item"><span class="meta-label">Source:</span> Loopnet</span>
+                            <span class="meta-item"><span class="meta-label">Offer Date:</span> Dec 27, 2025</span>
+                        </div>
+                    </div>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="prospect-details">
+                    <div class="details-section">
+                        <div class="details-label">Hurdles</div>
+                        <div class="hurdle-tags">
+                            <span class="hurdle-tag">Price gap</span>
+                        </div>
+                    </div>
+                    <div class="details-section">
+                        <div class="details-label">Activity Log</div>
+                        <div class="activity-log">
+                            <div class="activity-entry"><span class="activity-date">12/27/25:</span><span class="activity-text">Emailed offer for $2.5M. Said no thanks.</span></div>
+                            <div class="activity-entry"><span class="activity-date">8/11/25:</span><span class="activity-text">Discussed building. She said needed something less expensive and good investment. She had a small 1031 exchange potential. Sent information.</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Information Review -->
+        <section class="category-section">
+            <div class="category-header">
+                <span class="category-badge badge-info-review">3</span>
+                <span class="category-title">Information Review</span>
+            </div>
+
+            <div class="prospect-card has-new-activity" onclick="toggleCard(this)">
+                <div class="prospect-summary">
+                    <div class="prospect-main">
+                        <div class="prospect-name-row">
+                            <span class="prospect-name">Undisclosed - Charles Watson Broker</span>
+                            <span class="new-badge">NEW</span>
+                            <span class="type-badge owner-user">Owner-User</span>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Description</div>
+                            <div class="summary-text">Undisclosed prospect via broker Charles Watson.</div>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Status</div>
+                            <div class="summary-text">Client interested but wants lease to purchase (2/4). Broker thinks there's a premature 1031 exchange opportunity. Will discuss further with client.</div>
+                        </div>
+                        <div class="prospect-meta">
+                            <span class="meta-item"><span class="meta-label">Source:</span> Unknown</span>
+                        </div>
+                    </div>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="prospect-details">
+                    <div class="details-section">
+                        <div class="details-label">Activity Log</div>
+                        <div class="activity-log">
+                            <div class="activity-entry new-activity"><span class="activity-date">2/4/26:</span><span class="activity-text">Received call from broker. Said client had interest, but wanted to consider lease to purchase. Broker says he thinks there is a premature 1031 exchange opportunity that he would want to take advantage of. Broker will discuss further with client to see what they are willing to divulge.</span></div>
+                            <div class="activity-entry"><span class="activity-date">2/2/26:</span><span class="activity-text">Spoke with broker. He's going to put it in front of a prospect.</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="prospect-card" onclick="toggleCard(this)">
+                <div class="prospect-summary">
+                    <div class="prospect-main">
+                        <div class="prospect-name-row">
+                            <span class="prospect-name">Undisclosed Tenant Looking to Purchase - Pete Shelton Client</span>
+                            <span class="type-badge owner-user">Owner-User</span>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Description</div>
+                            <div class="summary-text">"A client looking to move out of a leased situation in Atlanta and buy something in this area."</div>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Status</div>
+                            <div class="summary-text">Would use entire building (1/30). Currently in a lease but want to move sooner than later. Timing unknown.</div>
+                        </div>
+                        <div class="prospect-meta">
+                            <span class="meta-item"><span class="meta-label">Source:</span> Costar</span>
+                        </div>
+                    </div>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="prospect-details">
+                    <div class="details-section">
+                        <div class="details-label">Activity Log</div>
+                        <div class="activity-log">
+                            <div class="activity-entry"><span class="activity-date">1/30/26:</span><span class="activity-text">Reached out for more information. Says their buyer would use the entire building. Does not know timing. Says they are in a lease but want to do something sooner than later.</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="prospect-card" onclick="toggleCard(this)">
+                <div class="prospect-summary">
+                    <div class="prospect-main">
+                        <div class="prospect-name-row">
+                            <span class="prospect-name">Raising Canes</span>
+                            <span class="type-badge developer">Build-to-Suit</span>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Description</div>
+                            <div class="summary-text">Likely a tear down and redevelopment play.</div>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Status</div>
+                            <div class="summary-text">Broker reached out 12/8 saying interested and requested survey.</div>
+                        </div>
+                        <div class="prospect-meta">
+                            <span class="meta-item"><span class="meta-label">Source:</span> Direct Outreach</span>
+                        </div>
+                    </div>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="prospect-details">
+                    <div class="details-section">
+                        <div class="details-label">Activity Log</div>
+                        <div class="activity-log">
+                            <div class="activity-entry"><span class="activity-date">12/8/25:</span><span class="activity-text">Broker reached back out, saying they were interested now and requested a survey. We asked who this was for.</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hit a Hurdle -->
+        <section class="category-section">
+            <div class="category-header">
+                <span class="category-badge badge-hurdle">10</span>
+                <span class="category-title">Hit a Hurdle</span>
+            </div>
+
+            <div class="prospect-card" onclick="toggleCard(this)">
+                <div class="prospect-summary">
+                    <div class="prospect-main">
+                        <div class="prospect-name-row">
+                            <span class="prospect-name">Undisclosed Office User</span>
+                            <span class="type-badge owner-user">Owner-User</span>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Description</div>
+                            <div class="summary-text">Standard office user looking for top floor with vacancy below for supplemental income.</div>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Status</div>
+                            <div class="summary-text">Not ready yet (1/27). Broker's feedback is they consider it too expensive. Let him know we're working on a lease if they only need 7,000+ SF.</div>
+                        </div>
+                        <div class="prospect-meta">
+                            <span class="meta-item"><span class="meta-label">Source:</span> Costar</span>
+                        </div>
+                    </div>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="prospect-details">
+                    <div class="details-section">
+                        <div class="details-label">Hurdles</div>
+                        <div class="hurdle-tags">
+                            <span class="hurdle-tag">Broker's feedback: too expensive</span>
+                        </div>
+                    </div>
+                    <div class="details-section">
+                        <div class="details-label">Activity Log</div>
+                        <div class="activity-log">
+                            <div class="activity-entry"><span class="activity-date">1/27/26:</span><span class="activity-text">Said they are not ready yet. He thinks it is too expensive. I let him know we are working on a lease if they only need 7,000 square feet or a little more.</span></div>
+                            <div class="activity-entry"><span class="activity-date">1/27/26:</span><span class="activity-text">Texted broker to see if his client gave him feedback on the building.</span></div>
+                            <div class="activity-entry"><span class="activity-date">12/17/25:</span><span class="activity-text">Received initial call from Ted S. Let him know a lot of interest from Banks, sent marketing materials and requested client timing and if we can accommodate a tour.</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="prospect-card" onclick="toggleCard(this)">
+                <div class="prospect-summary">
+                    <div class="prospect-main">
+                        <div class="prospect-name-row">
+                            <span class="prospect-name">Undisclosed Commercial Insurance Firm</span>
+                            <span class="type-badge owner-user">Partial-User</span>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Description</div>
+                            <div class="summary-text">Commercial insurance firm expanding, needs 7,000-14,000 SF.</div>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Status</div>
+                            <div class="summary-text">Initial feedback was too pricey (1/27). Told broker we're working on bank lease for first floor—he said he would float it.</div>
+                        </div>
+                        <div class="prospect-meta">
+                            <span class="meta-item"><span class="meta-label">Source:</span> Costar</span>
+                        </div>
+                    </div>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="prospect-details">
+                    <div class="details-section">
+                        <div class="details-label">Hurdles</div>
+                        <div class="hurdle-tags">
+                            <span class="hurdle-tag">Odd size for them</span>
+                            <span class="hurdle-tag">Deemed "pricey"</span>
+                        </div>
+                    </div>
+                    <div class="details-section">
+                        <div class="details-label">Activity Log</div>
+                        <div class="activity-log">
+                            <div class="activity-entry"><span class="activity-date">1/27/26:</span><span class="activity-text">Received response that initial feedback was too pricey. I told him we are working on a lease with a bank for the first floor and he said he would float it.</span></div>
+                            <div class="activity-entry"><span class="activity-date">1/27/26:</span><span class="activity-text">Texted broker asking if he had received feedback from the client yet.</span></div>
+                            <div class="activity-entry"><span class="activity-date">1/15/26:</span><span class="activity-text">Received call from broker. Said he would put it on the list of options for their review.</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="prospect-card" onclick="toggleCard(this)">
+                <div class="prospect-summary">
+                    <div class="prospect-main">
+                        <div class="prospect-name-row">
+                            <span class="prospect-name">Associated Credit Union</span>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Description</div>
+                            <div class="summary-text">Associated Credit Union being pushed out of existing North Druid Hills location. Ideally would find something nearby, but not opposed to considering Roswell.</div>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Status</div>
+                            <div class="summary-text">Won't be reviewing options until next year (2/3). Timing isn't until 2027.</div>
+                        </div>
+                        <div class="prospect-meta">
+                            <span class="meta-item"><span class="meta-label">Source:</span> Network</span>
+                        </div>
+                    </div>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="prospect-details">
+                    <div class="details-section">
+                        <div class="details-label">Hurdles</div>
+                        <div class="hurdle-tags">
+                            <span class="hurdle-tag">Timing isn't until 2027</span>
+                        </div>
+                    </div>
+                    <div class="details-section">
+                        <div class="details-label">Activity Log</div>
+                        <div class="activity-log">
+                            <div class="activity-entry"><span class="activity-date">2/3/26:</span><span class="activity-text">Said they would not be reviewing options until next year.</span></div>
+                            <div class="activity-entry"><span class="activity-date">1/27/26:</span><span class="activity-text">Mike connected dots with contact. Reached out with information.</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="prospect-card" onclick="toggleCard(this)">
+                <div class="prospect-summary">
+                    <div class="prospect-main">
+                        <div class="prospect-name-row">
+                            <span class="prospect-name">Undisclosed National Coffee Brand</span>
+                            <span class="type-badge developer">Build-to-Suit</span>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Description</div>
+                            <div class="summary-text">National coffee brand interested in location.</div>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Status</div>
+                            <div class="summary-text">Looking for 1-acre pad sites to ground lease or purchase. Can't take inline space. Valuation too high to submit an offer.</div>
+                        </div>
+                        <div class="prospect-meta">
+                            <span class="meta-item"><span class="meta-label">Source:</span> Costar</span>
+                        </div>
+                    </div>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="prospect-details">
+                    <div class="details-section">
+                        <div class="details-label">Hurdles</div>
+                        <div class="hurdle-tags">
+                            <span class="hurdle-tag">Needs 1-acre pad site</span>
+                            <span class="hurdle-tag">Valuation too high</span>
+                        </div>
+                    </div>
+                    <div class="details-section">
+                        <div class="details-label">Activity Log</div>
+                        <div class="activity-log">
+                            <div class="activity-entry"><span class="activity-date">1/23/26:</span><span class="activity-text">Said "it might be difficult to make those numbers work for our user. Generally we are looking for 1 ac pad sites to ground lease or purchase. We cannot take inline space. It's a great location, but at that valuation we won't be able to submit an offer in that realm."</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="prospect-card" onclick="toggleCard(this)">
+                <div class="prospect-summary">
+                    <div class="prospect-main">
+                        <div class="prospect-name-row">
+                            <span class="prospect-name">Taiwan Consulate</span>
+                            <span class="type-badge owner-user">Owner-User</span>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Description</div>
+                            <div class="summary-text">Taiwan consulate, currently in 10,000 SF lease in Midtown high-rise with 3+ years remaining.</div>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Status</div>
+                            <div class="summary-text">Toured 1/8. Won't make moves for another 2 years. Broker inexperienced.</div>
+                        </div>
+                        <div class="prospect-meta">
+                            <span class="meta-item"><span class="meta-label">Source:</span> Georgia MLS</span>
+                            <span class="meta-item"><span class="meta-label">Last Tour:</span> Jan 8, 2026</span>
+                        </div>
+                    </div>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="prospect-details">
+                    <div class="details-section">
+                        <div class="details-label">Hurdles</div>
+                        <div class="hurdle-tags">
+                            <span class="hurdle-tag">Tied into a lease</span>
+                            <span class="hurdle-tag">Likely need more space</span>
+                        </div>
+                    </div>
+                    <div class="details-section">
+                        <div class="details-label">Activity Log</div>
+                        <div class="activity-log">
+                            <div class="activity-entry"><span class="activity-date">1/8/26:</span><span class="activity-text">Toured them and gave insight to construction pricing. Their broker is inexperienced. They said they wouldn't start making offers on places for another 2-years.</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="prospect-card" onclick="toggleCard(this)">
+                <div class="prospect-summary">
+                    <div class="prospect-main">
+                        <div class="prospect-name-row">
+                            <span class="prospect-name">Bijon Motlagh - Investor</span>
+                            <span class="type-badge investor">Investor</span>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Description</div>
+                            <div class="summary-text">Iranian investor, possibly tenant in tow situation.</div>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Status</div>
+                            <div class="summary-text">Called to reconnect (1/27). Lost interest due to pricing. Would be interested if we get more traction with a bank.</div>
+                        </div>
+                        <div class="prospect-meta">
+                            <span class="meta-item"><span class="meta-label">Source:</span> Sign Call</span>
+                        </div>
+                    </div>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="prospect-details">
+                    <div class="details-section">
+                        <div class="details-label">Hurdles</div>
+                        <div class="hurdle-tags">
+                            <span class="hurdle-tag">Pricing too high as vacant</span>
+                            <span class="hurdle-tag">Would reconsider with bank lease</span>
+                        </div>
+                    </div>
+                    <div class="details-section">
+                        <div class="details-label">Activity Log</div>
+                        <div class="activity-log">
+                            <div class="activity-entry"><span class="activity-date">1/27/26:</span><span class="activity-text">Called to reconnect. He said he lost interest because of the pricing. He would like to remain updated if we get more traction with a bank.</span></div>
+                            <div class="activity-entry"><span class="activity-date">11/5/25:</span><span class="activity-text">Left VM to reconnect.</span></div>
+                            <div class="activity-entry"><span class="activity-date">9/23/25:</span><span class="activity-text">Left VM to reconnect and field feedback.</span></div>
+                            <div class="activity-entry"><span class="activity-date">9/19/25:</span><span class="activity-text">Connected with Bijon, an investor. Seemed excited about the location. Iranian guy. Requested information to follow-up with more information. Sent information immediately.</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="prospect-card" onclick="toggleCard(this)">
+                <div class="prospect-summary">
+                    <div class="prospect-main">
+                        <div class="prospect-name-row">
+                            <span class="prospect-name">Aventon (Developer)</span>
+                            <span class="type-badge developer">Developer</span>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Description</div>
+                            <div class="summary-text">Multi-family developer envisioning 6-story wrap with ground floor retail.</div>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Status</div>
+                            <div class="summary-text">Interest contingent on assemblage. Told him unlikely but could do more diligence.</div>
+                        </div>
+                        <div class="prospect-meta">
+                            <span class="meta-item"><span class="meta-label">Source:</span> Call</span>
+                        </div>
+                    </div>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="prospect-details">
+                    <div class="details-section">
+                        <div class="details-label">Website</div>
+                        <div class="details-content"><a href="https://www.aventoncompanies.com" target="_blank">aventoncompanies.com</a></div>
+                    </div>
+                    <div class="details-section">
+                        <div class="details-label">Hurdles</div>
+                        <div class="hurdle-tags">
+                            <span class="hurdle-tag">Needs assemblage</span>
+                        </div>
+                    </div>
+                    <div class="details-section">
+                        <div class="details-label">Activity Log</div>
+                        <div class="activity-log">
+                            <div class="activity-entry"><span class="activity-date">12/8/25:</span><span class="activity-text">Prospect called asking if interested in selling to a multi developer. Told him unlikely but that we could do more diligence. Envisions a 6-story wrap with ground floor retail. Does not need city land.</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="prospect-card" onclick="toggleCard(this)">
+                <div class="prospect-summary">
+                    <div class="prospect-main">
+                        <div class="prospect-name-row">
+                            <span class="prospect-name">Blue River Development</span>
+                            <span class="type-badge developer">Developer</span>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Description</div>
+                            <div class="summary-text">Impressive track record in below market residential land opportunities.</div>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Status</div>
+                            <div class="summary-text">Long discussion 10/24. Facing Roswell land and easement issues.</div>
+                        </div>
+                        <div class="prospect-meta">
+                            <span class="meta-item"><span class="meta-label">Source:</span> Sign Call</span>
+                        </div>
+                    </div>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="prospect-details">
+                    <div class="details-section">
+                        <div class="details-label">Website</div>
+                        <div class="details-content"><a href="https://www.blueriverdevelopment.com" target="_blank">blueriverdevelopment.com</a></div>
+                    </div>
+                    <div class="details-section">
+                        <div class="details-label">Hurdles</div>
+                        <div class="hurdle-tags">
+                            <span class="hurdle-tag">Roswell-owned land</span>
+                            <span class="hurdle-tag">Easement issues</span>
+                        </div>
+                    </div>
+                    <div class="details-section">
+                        <div class="details-label">Activity Log</div>
+                        <div class="activity-log">
+                            <div class="activity-entry"><span class="activity-date">10/24/25:</span><span class="activity-text">Prospect left VM. Called back and had long discussion, but let him know development would be a slow process and challenge until we knew more with the election. Said he was close to the council members on past developments.</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="prospect-card" onclick="toggleCard(this)">
+                <div class="prospect-summary">
+                    <div class="prospect-main">
+                        <div class="prospect-name-row">
+                            <span class="prospect-name">Ramana Kothi - Investor</span>
+                            <span class="type-badge investor">Investor</span>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Description</div>
+                            <div class="summary-text">Looking for stabilized investments with 7% cap rate, ideally medical.</div>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Status</div>
+                            <div class="summary-text">Building being vacant is a non-starter. Looking for tenant occupied only.</div>
+                        </div>
+                        <div class="prospect-meta">
+                            <span class="meta-item"><span class="meta-label">Source:</span> LoopNet</span>
+                        </div>
+                    </div>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="prospect-details">
+                    <div class="details-section">
+                        <div class="details-label">Hurdles</div>
+                        <div class="hurdle-tags">
+                            <span class="hurdle-tag">Vacant building - needs tenant</span>
+                        </div>
+                    </div>
+                    <div class="details-section">
+                        <div class="details-label">Activity Log</div>
+                        <div class="activity-log">
+                            <div class="activity-entry"><span class="activity-date">11/5/25:</span><span class="activity-text">Called to circle back. Asked if we have a tenant. Looking for tenant occupied properties. Looking mostly for medical properties, or stable tenant with good credit, somewhere $1M to $5M range. At least 6%-7%, 5-10 year lease term. Debt terms are 70%-80%, tied to 10 year.</span></div>
+                            <div class="activity-entry"><span class="activity-date">9/4/25:</span><span class="activity-text">Reached out via loopnet. Sent information and requested feedback.</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="prospect-card" onclick="toggleCard(this)">
+                <div class="prospect-summary">
+                    <div class="prospect-main">
+                        <div class="prospect-name-row">
+                            <span class="prospect-name">Regional Developer Terry Scott</span>
+                            <span class="type-badge developer">Developer</span>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Description</div>
+                            <div class="summary-text">Regional developer, mostly retail, buys properties in distress.</div>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Status</div>
+                            <div class="summary-text">Only interested if can acquire Roswell land. On hold.</div>
+                        </div>
+                        <div class="prospect-meta">
+                            <span class="meta-item"><span class="meta-label">Source:</span> LoopNet</span>
+                            <span class="meta-item"><span class="meta-label">Last Tour:</span> Sep 4, 2025</span>
+                        </div>
+                    </div>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="prospect-details">
+                    <div class="details-section">
+                        <div class="details-label">Hurdles</div>
+                        <div class="hurdle-tags">
+                            <span class="hurdle-tag">Roswell land availability</span>
+                        </div>
+                    </div>
+                    <div class="details-section">
+                        <div class="details-label">Activity Log</div>
+                        <div class="activity-log">
+                            <div class="activity-entry"><span class="activity-date">9/26/25:</span><span class="activity-text">Relayed that Roswell would be open to selling, but that's the extent, and limited due to upcoming election. Also that we aren't very interested in selling to a developer with any zoning contingencies. Putting on hold.</span></div>
+                            <div class="activity-entry"><span class="activity-date">9/23/25:</span><span class="activity-text">Received call. Says he's only interested if he can acquire the Roswell land. Wants to make this into a mixed/use or strip mall retail.</span></div>
+                            <div class="activity-entry"><span class="activity-date">9/4/25:</span><span class="activity-text">LoopNet Lead. Sent more information and said we would investigate.</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Silent -->
+        <section class="category-section">
+            <div class="category-header">
+                <span class="category-badge badge-silent">2</span>
+                <span class="category-title">Silent</span>
+            </div>
+
+            <div class="prospect-card" onclick="toggleCard(this)">
+                <div class="prospect-summary">
+                    <div class="prospect-main">
+                        <div class="prospect-name-row">
+                            <span class="prospect-name">Undisclosed Florida Technical School</span>
+                            <span class="type-badge owner-user">Owner-User</span>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Description</div>
+                            <div class="summary-text">Technical school based out of Central Florida looking at Atlanta expansion.</div>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Status</div>
+                            <div class="summary-text">Called to check in and left VM (1/27).</div>
+                        </div>
+                        <div class="prospect-meta">
+                            <span class="meta-item"><span class="meta-label">Source:</span> LoopNet</span>
+                        </div>
+                    </div>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="prospect-details">
+                    <div class="details-section">
+                        <div class="details-label">Activity Log</div>
+                        <div class="activity-log">
+                            <div class="activity-entry"><span class="activity-date">1/27/26:</span><span class="activity-text">Called to check in and left VM.</span></div>
+                            <div class="activity-entry"><span class="activity-date">11/5/25:</span><span class="activity-text">Left VM and text for update.</span></div>
+                            <div class="activity-entry"><span class="activity-date">9/23/25:</span><span class="activity-text">Let Ashley know we reduced the price to $4.375M and that we would get aggressive to close by year end. Said she would check with her client and follow up with me after her meeting on Friday.</span></div>
+                            <div class="activity-entry"><span class="activity-date">9/8/25:</span><span class="activity-text">Received a call. Client is a technical school based out of Central Florida looking at expansion opportunities. Sent initial information.</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="prospect-card" onclick="toggleCard(this)">
+                <div class="prospect-summary">
+                    <div class="prospect-main">
+                        <div class="prospect-name-row">
+                            <span class="prospect-name">Drake House</span>
+                            <span class="type-badge owner-user">Owner-User</span>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Description</div>
+                            <div class="summary-text">Non-profit crisis housing and incubator for single mothers.</div>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Status</div>
+                            <div class="summary-text">Conversations have died. Need more housing than office space.</div>
+                        </div>
+                        <div class="prospect-meta">
+                            <span class="meta-item"><span class="meta-label">Source:</span> FMLS</span>
+                        </div>
+                    </div>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="prospect-details">
+                    <div class="details-section">
+                        <div class="details-label">Website</div>
+                        <div class="details-content"><a href="https://www.thedrakehouse.org" target="_blank">thedrakehouse.org</a></div>
+                    </div>
+                    <div class="details-section">
+                        <div class="details-label">Hurdles</div>
+                        <div class="hurdle-tags">
+                            <span class="hurdle-tag">Need more housing than office</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dead -->
+        <section class="category-section">
+            <div class="category-header">
+                <span class="category-badge badge-dead">7</span>
+                <span class="category-title">Dead</span>
+            </div>
+
+            <div class="prospect-card" onclick="toggleCard(this)">
+                <div class="prospect-summary">
+                    <div class="prospect-main">
+                        <div class="prospect-name-row">
+                            <span class="prospect-name">Jeweler & Co-Working Concept</span>
+                            <span class="type-badge owner-user">Owner-User</span>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Description</div>
+                            <div class="summary-text">Looking for back office jeweler business with co-working/office for remainder.</div>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Status</div>
+                            <div class="summary-text">Dead—prospect pivoted to Dekalb County and is about to be under contract (1/27).</div>
+                        </div>
+                        <div class="prospect-meta">
+                            <span class="meta-item"><span class="meta-label">Source:</span> LoopNet</span>
+                            <span class="meta-item"><span class="meta-label">Last Tour:</span> Sep 21, 2025</span>
+                        </div>
+                    </div>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="prospect-details">
+                    <div class="details-section">
+                        <div class="details-label">Activity Log</div>
+                        <div class="activity-log">
+                            <div class="activity-entry"><span class="activity-date">1/27/26:</span><span class="activity-text">Prospect pivoted to Dekalb County and is about to be under contract.</span></div>
+                            <div class="activity-entry"><span class="activity-date">1/27/26:</span><span class="activity-text">Let broker know we are actively leasing the first floor to a bank. Requested update on client.</span></div>
+                            <div class="activity-entry"><span class="activity-date">11/5/25:</span><span class="activity-text">Checked back to see if they were still looking for a building.</span></div>
+                            <div class="activity-entry"><span class="activity-date">9/17/25:</span><span class="activity-text">Checked in, and found out the client passed due to it being more space than he needed or wanted to pay for.</span></div>
+                            <div class="activity-entry"><span class="activity-date">9/11/25:</span><span class="activity-text">Reached back out. Broker said he has personal matters to attend so she's trying to give him time. Let her know that we have a bank close to making an offer.</span></div>
+                            <div class="activity-entry"><span class="activity-date">9/5/25:</span><span class="activity-text">Checked with broker for feedback. Client is traveling and not back until the week after.</span></div>
+                            <div class="activity-entry"><span class="activity-date">8/21/25:</span><span class="activity-text">Prospect toured building. Liked the property. Broker said she would give him a week to think on it and then get back to me with feedback.</span></div>
+                            <div class="activity-entry"><span class="activity-date">8/19/25:</span><span class="activity-text">Set tour for 8/21.</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="prospect-card" onclick="toggleCard(this)">
+                <div class="prospect-summary">
+                    <div class="prospect-main">
+                        <div class="prospect-name-row">
+                            <span class="prospect-name">Undisclosed Partial User</span>
+                            <span class="type-badge owner-user">Partial-User</span>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Description</div>
+                            <div class="summary-text">Tech business with SaaS model. Does not need entire building.</div>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Status</div>
+                            <div class="summary-text">Dead—never received feedback from user (1/27). Using opportunity to check back.</div>
+                        </div>
+                        <div class="prospect-meta">
+                            <span class="meta-item"><span class="meta-label">Source:</span> Sign Call</span>
+                        </div>
+                    </div>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="prospect-details">
+                    <div class="details-section">
+                        <div class="details-label">Activity Log</div>
+                        <div class="activity-log">
+                            <div class="activity-entry"><span class="activity-date">1/27/26:</span><span class="activity-text">Never received feedback from user. He's going to use this opportunity to check back.</span></div>
+                            <div class="activity-entry"><span class="activity-date">11/10/25:</span><span class="activity-text">Discussed building at length. Says he's never actually talked to the prospect so he wanted to follow-up with as much insight as possible in order to generate feedback/interest.</span></div>
+                            <div class="activity-entry"><span class="activity-date">11/4/25:</span><span class="activity-text">Left VM and followed with email requesting feedback.</span></div>
+                            <div class="activity-entry"><span class="activity-date">10/30/25:</span><span class="activity-text">Received VM.</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="prospect-card" onclick="toggleCard(this)">
+                <div class="prospect-summary">
+                    <div class="prospect-main">
+                        <div class="prospect-name-row">
+                            <span class="prospect-name">Bryce Metcalf</span>
+                            <span class="type-badge investor">Investor</span>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Description</div>
+                            <div class="summary-text">Local broker, lives in the area, trying to make something of the property.</div>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Status</div>
+                            <div class="summary-text">Dead—canceled tour 12/22. Not a realistic buyer.</div>
+                        </div>
+                        <div class="prospect-meta">
+                            <span class="meta-item"><span class="meta-label">Source:</span> LoopNet</span>
+                        </div>
+                    </div>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="prospect-details">
+                    <div class="details-section">
+                        <div class="details-label">Activity Log</div>
+                        <div class="activity-log">
+                            <div class="activity-entry"><span class="activity-date">12/22/25:</span><span class="activity-text">Canceled tour. He's not a realistic buyer.</span></div>
+                            <div class="activity-entry"><span class="activity-date">12/17/25:</span><span class="activity-text">Renewed interest. Wants to tour. Tour scheduled for 12/22.</span></div>
+                            <div class="activity-entry"><span class="activity-date">10/7/25:</span><span class="activity-text">Received call with interest as investment and redevelopment or repurpose. Sent information.</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="prospect-card" onclick="toggleCard(this)">
+                <div class="prospect-summary">
+                    <div class="prospect-main">
+                        <div class="prospect-name-row">
+                            <span class="prospect-name">Grace Korean Presbyterian Church</span>
+                            <span class="type-badge owner-user">Owner-User</span>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Description</div>
+                            <div class="summary-text">Korean church looking for expansion options.</div>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Status</div>
+                            <div class="summary-text">Dead—zoning does not permit places of worship.</div>
+                        </div>
+                        <div class="prospect-meta">
+                            <span class="meta-item"><span class="meta-label">Source:</span> Sign Call</span>
+                        </div>
+                    </div>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="prospect-details">
+                    <div class="details-section">
+                        <div class="details-label">Website</div>
+                        <div class="details-content"><a href="https://www.gracekpc.org" target="_blank">gracekpc.org</a></div>
+                    </div>
+                    <div class="details-section">
+                        <div class="details-label">Activity Log</div>
+                        <div class="activity-log">
+                            <div class="activity-entry"><span class="activity-date">11/11/25:</span><span class="activity-text">Sent email with all information.</span></div>
+                            <div class="activity-entry"><span class="activity-date">11/10/25:</span><span class="activity-text">Interested in learning more about for sale or lease. Opportunistic timing. I told him we weren't zoned for it, but would let him know if anything changes.</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="prospect-card" onclick="toggleCard(this)">
+                <div class="prospect-summary">
+                    <div class="prospect-main">
+                        <div class="prospect-name-row">
+                            <span class="prospect-name">General Contractor</span>
+                            <span class="type-badge owner-user">Owner-User</span>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Description</div>
+                            <div class="summary-text">General contractor in NF Submarket.</div>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Status</div>
+                            <div class="summary-text">Dead—went to build-to-suit with partner who owned the land.</div>
+                        </div>
+                        <div class="prospect-meta">
+                            <span class="meta-item"><span class="meta-label">Source:</span> Costar</span>
+                        </div>
+                    </div>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="prospect-details">
+                    <div class="details-section">
+                        <div class="details-label">Activity Log</div>
+                        <div class="activity-log">
+                            <div class="activity-entry"><span class="activity-date">9/24/25:</span><span class="activity-text">Called to update on pricing and check in. Said that this went to a build-to-suit.</span></div>
+                            <div class="activity-entry"><span class="activity-date">7/2/25:</span><span class="activity-text">Checked in. No update.</span></div>
+                            <div class="activity-entry"><span class="activity-date">5/9/25:</span><span class="activity-text">Checked in. GC going back to the drawing board for their requirement. No feedback on ours.</span></div>
+                            <div class="activity-entry"><span class="activity-date">5/1/25:</span><span class="activity-text">Requested feedback. Meeting pushed to early next week.</span></div>
+                            <div class="activity-entry"><span class="activity-date">4/22/25:</span><span class="activity-text">Sent link with additional photos and renderings. Requested additional feedback, but none yet. Broker to update survey.</span></div>
+                            <div class="activity-entry"><span class="activity-date">4/18/25:</span><span class="activity-text">RJ inquired. Sent information. Has GC in land development currently at Holcomb Woods in 12K SF, heavy private offices. Touring next week.</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="prospect-card" onclick="toggleCard(this)">
+                <div class="prospect-summary">
+                    <div class="prospect-main">
+                        <div class="prospect-name-row">
+                            <span class="prospect-name">RPM Capital - Tony Amini</span>
+                            <span class="type-badge investor">Investor</span>
+                            <span class="offer-badge">$3.2M Offer</span>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Description</div>
+                            <div class="summary-text">Real estate investor looking to buy and speculatively lease.</div>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Status</div>
+                            <div class="summary-text">Dead—went under contract with another property. Offered $3.2M in June 2024.</div>
+                        </div>
+                        <div class="prospect-meta">
+                            <span class="meta-item"><span class="meta-label">Source:</span> Costar</span>
+                            <span class="meta-item"><span class="meta-label">Offer Date:</span> Jun 5, 2024</span>
+                        </div>
+                    </div>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="prospect-details">
+                    <div class="details-section">
+                        <div class="details-label">Activity Log</div>
+                        <div class="activity-log">
+                            <div class="activity-entry"><span class="activity-date">11/5/25:</span><span class="activity-text">Reached out to broker to see if they had anything else going.</span></div>
+                            <div class="activity-entry"><span class="activity-date">6/25/25:</span><span class="activity-text">Buyer went under contract with another property.</span></div>
+                            <div class="activity-entry"><span class="activity-date">6/13/25:</span><span class="activity-text">Buyer reluctant to go any higher. Capped at $20/SF NNN office rates, and $24/SF NNN Retail rates, assuming $50/SF in TI, and seeking 9% rate of return.</span></div>
+                            <div class="activity-entry"><span class="activity-date">6/9/25:</span><span class="activity-text">Sent counter at $3.975M.</span></div>
+                            <div class="activity-entry"><span class="activity-date">6/5/25:</span><span class="activity-text">Received offer for $3.2M.</span></div>
+                            <div class="activity-entry"><span class="activity-date">6/3/25:</span><span class="activity-text">Sent follow-up email to broker with full information.</span></div>
+                            <div class="activity-entry"><span class="activity-date">6/3/25:</span><span class="activity-text">Sign call from broker. He was familiar with the listing and remembers when it first came available over the $5M mark. This client was a referral, just an investor with $3.2M looking to buy real estate. Said they should be able to send an offer/LOI, but did not have timing.</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="prospect-card" onclick="toggleCard(this)">
+                <div class="prospect-summary">
+                    <div class="prospect-main">
+                        <div class="prospect-name-row">
+                            <span class="prospect-name">Psychiatrist</span>
+                            <span class="type-badge owner-user">Partial-User</span>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Description</div>
+                            <div class="summary-text">Expansion location for existing psychiatry practice.</div>
+                        </div>
+                        <div class="summary-section-inline">
+                            <div class="summary-label">Status</div>
+                            <div class="summary-text">Dead—client has gone completely dark on the broker.</div>
+                        </div>
+                        <div class="prospect-meta">
+                            <span class="meta-item"><span class="meta-label">Source:</span> LoopNet</span>
+                        </div>
+                    </div>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="prospect-details">
+                    <div class="details-section">
+                        <div class="details-label">Activity Log</div>
+                        <div class="activity-log">
+                            <div class="activity-entry"><span class="activity-date">11/5/25:</span><span class="activity-text">Checked back. Client has gone completely dark on the broker.</span></div>
+                            <div class="activity-entry"><span class="activity-date">6/25/25:</span><span class="activity-text">Touched base for signs of life or if there were any major changes to the requirement.</span></div>
+                            <div class="activity-entry"><span class="activity-date">6/3/25:</span><span class="activity-text">Still no feedback from client.</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        Prepared by Industry Real Estate Partners | Confidential
+    </footer>
+
+    <script>
+        function toggleCard(card) {
+            card.classList.toggle('expanded');
+        }
+    </script>
+</body>
+</html>
